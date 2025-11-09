@@ -12,10 +12,10 @@ A paralax system is a visual technique used in 2D games which utilizes Scripts a
 In this project the Unity Paralax System was implemented in 1 main way:
 
 ### 
-- Creating the feel of a never ending scenery.
+- 1 justification.
   
 ### 
-- Giving depth to the scenery and making it feel less stiff. 
+-2 justification. 
 
 ## Game Scene Script
 
