@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public PlayerControllerIso playerController;
+    public UIController ui;
+    public static int lifes = 5;
+    public static int killCount = 0;
+
+
     void Start()
     {
         
@@ -13,6 +18,27 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        ui.UpdateLives(lifes);
+        ui.UpdateKillCount(killCount);
+    }
+    public void RestartLevel()
+    {
+        playerController.enabled = true;
+        playerController.Respawn();
+    }
+    public void GameOver()
+    {
+        ui.ActivateGameOverScreen();
+        Debug.Log("Game Over!");
+    }
+
+    public void LevelComplete()
+    {
+        ui.ActivateLevelCompleteScreen();
+        Debug.Log("Level Complete!");
+    }
+    public void ReturnToMainMenu()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 }
