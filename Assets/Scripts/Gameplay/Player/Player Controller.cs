@@ -259,7 +259,7 @@ public class PlayerControllerIso : MonoBehaviour
         {
             if (GameController.lifes < 5)
             {
-                GameController.lifes += 1;
+                GameController.lifes += 50;
                 gameController.ui.UpdateLives(GameController.lifes);
             }
             Destroy(collision.gameObject);

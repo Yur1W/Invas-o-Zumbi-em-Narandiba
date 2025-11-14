@@ -11,13 +11,22 @@ public class UIController : MonoBehaviour
     [SerializeField]
     GameObject levelCompleteScreen;
     [SerializeField]
-    TextMeshPro KillCountText;
+    GameObject tutorielScreen;
+    [SerializeField]
+    GameObject HUD;
+    [SerializeField]
+    GameObject KillCountText;
     [SerializeField]
     TextMeshPro LivesText;
+    [SerializeField]
+    PlayerControllerIso playerController;
     void Start()
     {
         gameOverScreen.SetActive(false);
         levelCompleteScreen.SetActive(false);
+        tutorielScreen.SetActive(true);
+        HUD.SetActive(true);
+        StartCoroutine(CloseTutorielScreen());
     }
     public void ActivateGameOverScreen()
     {
@@ -31,7 +40,7 @@ public class UIController : MonoBehaviour
     }
     public void UpdateKillCount(int killCount)
     {
-        KillCountText.text = "Kills: " + killCount.ToString();
+        KillCountText.GetComponent<TextMeshPro>().text = "Kills: " + killCount.ToString();
     }
     public void UpdateLives(int lives)
     {
@@ -42,5 +51,10 @@ public class UIController : MonoBehaviour
     void Update()
     {
         
+    }
+    IEnumerator CloseTutorielScreen()
+    {
+        yield return new WaitForSeconds(8f);
+        tutorielScreen.SetActive(false);
     }
 }
