@@ -19,7 +19,7 @@ public class AxeAttack : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-           
+           Debug.Log("Acertei no inimigo com o machado");
         }
     }
 }
