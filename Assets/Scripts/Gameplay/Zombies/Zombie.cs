@@ -6,7 +6,7 @@ using UnityEngine;
 public class Zombie : MonoBehaviour
 {
     public int hp = 3;
-    public int damage = 1;
+    public int damage = 3;
     public float speed = 1f;
     public float attackDuration = 1f;
     public float deathDuration = 1f;
@@ -55,7 +55,7 @@ public class Zombie : MonoBehaviour
         {
             case ZombieState.Idle:Idle();break;
             case ZombieState.Moving:Run();break;
-            case ZombieState.Chasing:ChasePlayer();break;
+            case ZombieState.Chasing:ChasePlayerCohesion();break;
             case ZombieState.Attacking:Attack();break;
             case ZombieState.Dead:Die();break;
         }
@@ -124,7 +124,7 @@ public class Zombie : MonoBehaviour
             playerVisto = false;
         }
     }
-    void ChasePlayer()
+    void ChasePlayerCohesion()
     {
         if (!playerVisto)
             {
@@ -136,9 +136,34 @@ public class Zombie : MonoBehaviour
         {
             //persuit
             Vector2 direction = (player.transform.position - transform.position).normalized;
-            rb.velocity = direction * speed;
+            Vector2 calculatedDirection = direction;
+            //try cohesion
+            Collider2D[] viewArea = Physics2D.OverlapCircleAll(transform.position, otherZombiesArea, LayerMask.GetMask("Enemy"));
+            if (viewArea.Length > 1)
+            {
+                Vector2 averagePosition = Vector2.zero;
+                int count = 0;
+                foreach (Collider2D col in viewArea)
+                {
+                    if (col.gameObject != this.gameObject)
+                    {
+                        averagePosition += (Vector2)col.transform.position;
+                        count++;
+                    }
+                }
+                if (count > 0)
+                {
+                        averagePosition /= count;
+                        Vector2 cohesion = (averagePosition - (Vector2)transform.position).normalized;
+                        calculatedDirection = direction + cohesion * effect;
+                        calculatedDirection.Normalize();
+                }
+            }                
+            rb.velocity = calculatedDirection * speed;
             animator.Play("Run"); 
         }
+            
+            
     }
     void ChangeDirection()
     {

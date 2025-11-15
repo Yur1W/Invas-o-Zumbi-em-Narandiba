@@ -10,13 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5222005140772551835}
   - component: {fileID: 894054767664368796}
-  - component: {fileID: 7446304731636871490}
   - component: {fileID: 8002535320173595005}
   - component: {fileID: 1732681467695111921}
   - component: {fileID: 8234550744407803082}
   - component: {fileID: 6546915479161872171}
   - component: {fileID: 4610688638477159042}
-  - component: {fileID: 7097896117226413013}
+  - component: {fileID: 5159648052534717429}
   m_Layer: 0
   m_Name: BombZombie
   m_TagString: Enemy
@@ -95,23 +94,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7446304731636871490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8708965202193006172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d628c4d73441a3e4f87ed22594347387, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 3
-  damage: 1
-  speed: 1
-  attackDuration: 1
-  deathDuration: 1
 --- !u!95 &8002535320173595005
 Animator:
   serializedVersion: 5
@@ -275,7 +257,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.119048595, y: 0.31478977}
   m_EdgeRadius: 0
---- !u!114 &7097896117226413013
+--- !u!114 &5159648052534717429
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -284,11 +266,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8708965202193006172}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d628c4d73441a3e4f87ed22594347387, type: 3}
+  m_Script: {fileID: 11500000, guid: c05ea357e1e49fa42a60607c226d1b78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 3
-  damage: 1
+  hp: 2
+  damage: 4
   speed: 1
   attackDuration: 1
   deathDuration: 1

@@ -136,9 +136,10 @@ public class PlayerControllerIso : MonoBehaviour
         //comportamento
         rb.velocity = Vector2.zero;
         if (axeSwingInstance == null)
-        axeSwingInstance = Instantiate(axeSwingPrefab, transform.position, Quaternion.identity);
-        animator.Play("Attack_barbarian");
-
+        {
+            axeSwingInstance = Instantiate(axeSwingPrefab, transform.position, Quaternion.identity);
+            animator.Play("Attack_barbarian");
+        }
         //transições
         if (!isAttacking)
         {
@@ -151,7 +152,7 @@ public class PlayerControllerIso : MonoBehaviour
     {
         yield return new WaitForSeconds(attackCooldown);
         if (axeSwingInstance != null)
-        Destroy(axeSwingInstance);
+        DestroyImmediate(axeSwingInstance);
         axeSwingInstance = null;
         isAttacking = false;
         
@@ -169,10 +170,10 @@ public class PlayerControllerIso : MonoBehaviour
     {
         //comportamento
         rb.velocity = inputMovement * dashAttackSpeed;
-        if (axeSwingInstance == null)
+        if (axeSwingInstance == null){
         animator.Play("Attack_barbarian");
         axeSwingInstance = Instantiate(axeSwingPrefab, transform.position, Quaternion.identity);
-
+        }
         //transições
         if (!isDashAttacking)
         {
@@ -268,8 +269,20 @@ public class PlayerControllerIso : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
-        {
-            enemyDamage = collision.GetComponent<Zombie>().damage;
+        {   
+            if (collision.GetComponent<Zombie>() != null)
+            {
+               enemyDamage = collision.GetComponent<Zombie>().damage; 
+            }
+            else if (collision.GetComponent<BombZombie>() != null)
+            {
+               enemyDamage = collision.GetComponent<BombZombie>().damage; 
+            }
+            else if (collision.GetComponent<PoliceZombie>() != null)
+            {
+               enemyDamage = collision.GetComponent<PoliceZombie>().damage; 
+            }
+            
             playerHpState = PlayerHpState.Hurt;
 
         }
