@@ -24,6 +24,14 @@ public class TitleScreen : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(1);
     }
+    public void MainMenu()
+    {
+        SceneManager.LoadSceneAsync(0);
+    }
+    public void RestartLevel()
+    {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+    }
     public void QuitGame()
     {
         Application.Quit();
