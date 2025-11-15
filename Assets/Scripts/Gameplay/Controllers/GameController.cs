@@ -22,6 +22,8 @@ public class GameController : MonoBehaviour
     {
         killCount = 0;
         lifes = 100;
+        SafeZone.SetActive(false);
+        RestartLevel();
     }
 
     // Update is called once per frame
@@ -29,6 +31,8 @@ public class GameController : MonoBehaviour
     {
         ui.UpdateLives(lifes);
         ui.UpdateKillCount(killCount);
+        ui.UpdateUpgradeSlider(killCount);
+        KilledEnemys();
     }
     public void RestartLevel()
     {

@@ -13,11 +13,13 @@ public class UIController : MonoBehaviour
     [SerializeField]
     GameObject tutorielScreen;
     [SerializeField]
-    GameObject HUD;
+    public GameObject HUD;
     [SerializeField]
     GameObject KillCountText;
     [SerializeField]
-    TextMeshPro LivesText;
+    GameObject UpgradeSlider;
+    [SerializeField]
+    GameObject LivesSlider;
     [SerializeField]
     PlayerControllerIso playerController;
     void Start()
@@ -31,20 +33,24 @@ public class UIController : MonoBehaviour
     public void ActivateGameOverScreen()
     {
         gameOverScreen.SetActive(true);
-        Debug.Log("Activating Game Over Screen");
+        Debug.Log("Game Over ");
     }
     public void ActivateLevelCompleteScreen()
     {
         levelCompleteScreen.SetActive(true);
-        Debug.Log("Activating Level Complete Screen");
+        Debug.Log("Level Complete ");
     }
     public void UpdateKillCount(int killCount)
     {
-        KillCountText.GetComponent<TextMeshPro>().text = "Kills: " + killCount.ToString();
+        KillCountText.GetComponent<TextMeshProUGUI>().text =  killCount.ToString();
+    }
+    public void UpdateUpgradeSlider(float value)
+    {
+        UpgradeSlider.GetComponent<Slider>().value = value;
     }
     public void UpdateLives(int lives)
     {
-        LivesText.text = "Lives: " + lives.ToString();
+        LivesSlider.GetComponent<Slider>().value = lives;
     }
 
     // Update is called once per frame
@@ -54,7 +60,7 @@ public class UIController : MonoBehaviour
     }
     IEnumerator CloseTutorielScreen()
     {
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(10f);
         tutorielScreen.SetActive(false);
     }
 }

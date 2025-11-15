@@ -11,6 +11,8 @@ public class PlayerControllerIso : MonoBehaviour
     [SerializeField]
     public float speed = 2f;
     [SerializeField]
+    public int attackDamage = 1;
+    [SerializeField]
     public float attackRange = 1f;
     [SerializeField]
     public float dashAttackSpeed = 4f;
@@ -37,6 +39,8 @@ public class PlayerControllerIso : MonoBehaviour
     Vector3 spawnPoint;
     Vector3 lookDir;
     public int enemyDamage = 0;
+    bool isAttacking = false;
+    bool isDashAttacking = false;
     
     public enum PlayerState { Idle, Moving, Attacking, RunAttack, Dead }
     public PlayerState playerState = PlayerState.Idle;
@@ -136,7 +140,12 @@ public class PlayerControllerIso : MonoBehaviour
         animator.Play("Attack_barbarian");
 
         //transições
-        StartCoroutine(AttackCooldown());   
+        if (!isAttacking)
+        {
+            isAttacking = true;
+            StartCoroutine(AttackCooldown());
+        }
+           
     }
     private IEnumerator AttackCooldown()
     {
@@ -144,6 +153,7 @@ public class PlayerControllerIso : MonoBehaviour
         if (axeSwingInstance != null)
         Destroy(axeSwingInstance);
         axeSwingInstance = null;
+        isAttacking = false;
         
         if (!inputAttack && inputMovement != Vector2.zero)
         {
@@ -160,11 +170,16 @@ public class PlayerControllerIso : MonoBehaviour
         //comportamento
         rb.velocity = inputMovement * dashAttackSpeed;
         if (axeSwingInstance == null)
-        axeSwingInstance = Instantiate(axeSwingPrefab, transform.position, Quaternion.identity);
         animator.Play("Attack_barbarian");
+        axeSwingInstance = Instantiate(axeSwingPrefab, transform.position, Quaternion.identity);
 
         //transições
-        StartCoroutine(DashAttackCooldown());
+        if (!isDashAttacking)
+        {
+            isDashAttacking = true;
+            StartCoroutine(DashAttackCooldown());
+        }
+        
     }
     private IEnumerator DashAttackCooldown()
     {
@@ -172,14 +187,15 @@ public class PlayerControllerIso : MonoBehaviour
         if (axeSwingInstance != null)
         Destroy(axeSwingInstance);
         axeSwingInstance = null;
+        isDashAttacking = false;
         
         if (!inputAttack && inputMovement != Vector2.zero)
         {
             playerState = PlayerState.Moving;
         }
-        if (inputMovement != Vector2.zero && inputAttack)
+        if (inputAttack)
         {
-            playerState = PlayerState.RunAttack;
+            playerState = PlayerState.Attacking;
         }
         playerState = PlayerState.Idle;
     }
@@ -193,11 +209,12 @@ public class PlayerControllerIso : MonoBehaviour
     }
     private IEnumerator BlinkEffect()
     {
+        playerHpState = PlayerHpState.Invincible;
         sprite.color = Color.red;
         yield return new WaitForSeconds(0.1f);
         sprite.color = Color.white;
         yield return new WaitForSeconds(0.1f);
-
+        playerHpState = PlayerHpState.Normal;
     }
     private void Invicibility()
     {
@@ -216,6 +233,8 @@ public class PlayerControllerIso : MonoBehaviour
     {
         Vector3 lookDir = mousePos - transform.position;
         if (lookDir.x >= 0)
+        
+        //if (inputMovement.x >= 0)
         {
             sprite.flipX = false;
         }
@@ -252,7 +271,6 @@ public class PlayerControllerIso : MonoBehaviour
         {
             enemyDamage = collision.GetComponent<Zombie>().damage;
             playerHpState = PlayerHpState.Hurt;
-            Destroy(collision.gameObject);
 
         }
         if (collision.CompareTag("Item"))
@@ -261,8 +279,8 @@ public class PlayerControllerIso : MonoBehaviour
             {
                 GameController.lifes += 50;
                 gameController.ui.UpdateLives(GameController.lifes);
+                collision.GetComponent<Animator>().SetBool("Open", true);
             }
-            Destroy(collision.gameObject);
         }
     }
 }
