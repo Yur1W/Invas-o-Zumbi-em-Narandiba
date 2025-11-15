@@ -59,6 +59,7 @@ public class GameController : MonoBehaviour
        if (killCount >= 150)
         {
             SafeZone.SetActive(true);
+            SafeZone.GetComponent<BoxCollider2D>().enabled =  false;
         }
     }
 }

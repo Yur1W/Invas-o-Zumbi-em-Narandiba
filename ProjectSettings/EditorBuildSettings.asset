@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Prova 2025.2/Scenes/TuToriel.unity
     guid: c20d1e23a2ec7714c92e8c19bad0c747
   - enabled: 1
-    path: Assets/Prova 2025.2/Scenes/Game.unity
+    path: Assets/Prova 2025.2/Scenes/Story Mode.unity
     guid: 6dbe69a487df4fb4c895538a1a964b10
   - enabled: 1
     path: Assets/Prova 2025.2/Scenes/Boss.unity
