@@ -142,8 +142,10 @@ public class SuperPlayerControllerIso : MonoBehaviour
         //comportamento
         rb.velocity = Vector2.zero;
         if (axeSwingInstance == null)
+        {         
         axeSwingInstance = Instantiate(axeSwingPrefab, transform.position, Quaternion.identity);
         animator.Play("Attack");
+        }
 
         //transições
         if (!isAttacking)
@@ -175,10 +177,11 @@ public class SuperPlayerControllerIso : MonoBehaviour
     {
         //comportamento
         rb.velocity = inputMovement * dashAttackSpeed;
-        if (axeSwingInstance == null)
+        if (axeSwingInstance == null){
         animator.Play("Attack");
         axeSwingInstance = Instantiate(axeSwingPrefab, transform.position, Quaternion.identity);
         CinemachineCamera.GetComponent<CinemachineShake>().heavyShake();
+        }
 
         //transições
         if (!isDashAttacking)
@@ -236,6 +239,12 @@ public class SuperPlayerControllerIso : MonoBehaviour
         //if (inputMovement.x >= 0)
         {
             sprite.flipX = false;
+            if ((playerState == PlayerState.Attacking || playerState == PlayerState.RunAttack) && axeSwingInstance != null)
+                {
+                    axeSwingInstance.transform.position = new Vector2(transform.position.x + 0.1f,transform.position.y);
+                    UnityEditor.EditorApplication.isPaused = true;
+                }
+            
         }
         else
         {
