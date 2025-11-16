@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        killCount = 0;
+        killCount = 49;
         lifes = 100;
         SafeZone.SetActive(false);
         RestartLevel();

@@ -9,6 +9,8 @@ public class PlayerControllerIso : MonoBehaviour
     
     [Header("Player Stats")]
     [SerializeField]
+    int mutationAmount = 50;
+    [SerializeField]
     public float speed = 2f;
     [SerializeField]
     public int attackDamage = 1;
@@ -31,6 +33,7 @@ public class PlayerControllerIso : MonoBehaviour
     Rigidbody2D rb;
     Animator animator;
     GameController gameController;
+    GameObject CinemachineCamera;
    
     Vector2 axeSwingPosition;
     Vector2 inputMovement;
@@ -54,8 +57,13 @@ public class PlayerControllerIso : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         gameController = GameObject.FindObjectOfType<GameController>();
         animator = GetComponent<Animator>();
+        
         // set spawn point
         spawnPoint = transform.position;
+    }
+    void Start()
+    {
+        CinemachineCamera = GameObject.FindGameObjectWithTag("Cine");
     }
     void Update()
     {
@@ -173,6 +181,7 @@ public class PlayerControllerIso : MonoBehaviour
         if (axeSwingInstance == null){
         animator.Play("Attack_barbarian");
         axeSwingInstance = Instantiate(axeSwingPrefab, transform.position, Quaternion.identity);
+        CinemachineCamera.GetComponent<CinemachineShake>().lightShake();
         }
         //transições
         if (!isDashAttacking)
@@ -202,7 +211,7 @@ public class PlayerControllerIso : MonoBehaviour
     }
     private void Upgrade()
     {
-        if (GameController.killCount >= 50)
+        if (GameController.killCount >= mutationAmount)
         {
             SuperPlayer.SetActive(true);
             this.gameObject.SetActive(false);
