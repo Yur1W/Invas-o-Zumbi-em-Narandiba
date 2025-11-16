@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,10 @@ public class TitleScreen : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(2);
     }
+    public void NextLevel()
+    {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+    }
     public void SettingsScreen()
     {
         SceneManager.LoadSceneAsync(1);
@@ -31,6 +36,10 @@ public class TitleScreen : MonoBehaviour
     public void RestartLevel()
     {
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void RetryLevel()
+    {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex-1);
     }
     public void QuitGame()
     {

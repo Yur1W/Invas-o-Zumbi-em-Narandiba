@@ -7,24 +7,26 @@ public class GameController : MonoBehaviour
     [SerializeField]
     public PlayerControllerIso playerController;
     [SerializeField]
+    GameObject bossZombie;
     public UIController ui;
      [SerializeField]
-    GameObject SafeZone;
+    GameObject Blockage;
     [Header("Game Stats")]
     [SerializeField]
     public static int lifes = 100;
     [SerializeField]
     public static int killCount = 0;
     public static bool isGameOver = false;
-   
+    
+
 
 
     void Start()
     {
-        killCount = 49;
+        killCount = 0;
         lifes = 100;
         isGameOver = false;
-        SafeZone.SetActive(false);
+        Blockage.SetActive(true);
         RestartLevel();
     }
 
@@ -34,6 +36,10 @@ public class GameController : MonoBehaviour
         ui.UpdateLives(lifes);
         ui.UpdateKillCount(killCount);
         ui.UpdateUpgradeSlider(killCount);
+        if (bossZombie != null)
+        {
+            ui.UpdateBoddHP(bossZombie.GetComponent<BossZombie>().hp);
+        }
         KilledEnemys();
     }
     public void RestartLevel()
@@ -52,16 +58,20 @@ public class GameController : MonoBehaviour
         ui.ActivateLevelCompleteScreen();
         Debug.Log("Level Complete!");
     }
+    public void BossDefeated()
+    {
+        ui.ActivateBossDefeatedScreen();
+        Debug.Log("Boss Defeated!");
+    }
     public void ReturnToMainMenu()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
     public void KilledEnemys()
     {
-       if (killCount >= 150)
+       if (killCount >= 100)
         {
-            SafeZone.SetActive(true);
-            SafeZone.GetComponent<BoxCollider2D>().enabled =  false;
+            Blockage.SetActive(false);
         }
     }
 }

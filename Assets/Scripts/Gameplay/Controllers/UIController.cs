@@ -11,6 +11,8 @@ public class UIController : MonoBehaviour
     [SerializeField]
     GameObject levelCompleteScreen;
     [SerializeField]
+    GameObject bossDefeatedScreen;
+    [SerializeField]
     GameObject tutorielScreen;
     [SerializeField]
     public GameObject HUD;
@@ -21,7 +23,11 @@ public class UIController : MonoBehaviour
     [SerializeField]
     GameObject LivesSlider;
     [SerializeField]
-    PlayerControllerIso playerController;
+    GameObject BossHPSlider;
+    [SerializeField]
+    TitleScreen titleScreen;
+    [SerializeField]
+    GameObject Warning;
     void Start()
     {
         gameOverScreen.SetActive(false);
@@ -40,6 +46,17 @@ public class UIController : MonoBehaviour
     {
         levelCompleteScreen.SetActive(true);
         Debug.Log("Level Complete ");
+        StartCoroutine(NextLevelDelay());
+    }
+    IEnumerator NextLevelDelay()
+    {
+        yield return new WaitForSeconds(3f);
+        titleScreen.NextLevel();
+    }
+    public void ActivateBossDefeatedScreen()
+    {
+        bossDefeatedScreen.SetActive(true);
+        Debug.Log("Boss Defeated ");
     }
     public void UpdateKillCount(int killCount)
     {
@@ -52,6 +69,20 @@ public class UIController : MonoBehaviour
     public void UpdateLives(int lives)
     {
         LivesSlider.GetComponent<Slider>().value = lives;
+    }
+    public void UpdateBoddHP(float value)
+    {
+        BossHPSlider.GetComponent<Slider>().value = value;
+    }
+    public void ActivateWarning()
+    {
+        Warning.SetActive(true);
+        StartCoroutine(DeactivateWarning());
+    }
+    IEnumerator DeactivateWarning()
+    {
+        yield return new WaitForSeconds(3f);
+        Warning.SetActive(false);
     }
 
     // Update is called once per frame

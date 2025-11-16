@@ -21,7 +21,10 @@ public class Zombie : MonoBehaviour
     Vector2 direçãoPlayer;
 
     //cohesion
+    [Header("Cohesion Settings")]
+    [SerializeField]
     float otherZombiesArea = 3f;
+    [SerializeField]
     float effect = 0.5f;
 
     static List<Zombie> allZombies = new List<Zombie>();
