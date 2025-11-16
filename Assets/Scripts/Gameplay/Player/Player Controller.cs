@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerControllerIso : MonoBehaviour
@@ -44,6 +45,7 @@ public class PlayerControllerIso : MonoBehaviour
     public int enemyDamage = 0;
     bool isAttacking = false;
     bool isDashAttacking = false;
+    int GameMode;
     
     public enum PlayerState { Idle, Moving, Attacking, RunAttack, Dead }
     public PlayerState playerState = PlayerState.Idle;
@@ -59,7 +61,24 @@ public class PlayerControllerIso : MonoBehaviour
         animator = GetComponent<Animator>();
         
         // set spawn point
+        GameMode = SceneManager.GetActiveScene().buildIndex;
+        switch (GameMode)
+        {
+            case 3:
+                spawnPoint = new Vector3(0f, 0f, 0f);
+                break;
+            case 5:
+                spawnPoint = new Vector3(0f, 0f, 0f);
+                break;
+            case 4:
+                spawnPoint = new Vector3(-35, -6f, 0f);
+                break;
+            default:
+                spawnPoint = Vector3.zero;
+                break;
+        }
         spawnPoint = transform.position;
+
     }
     void Start()
     {
@@ -181,7 +200,7 @@ public class PlayerControllerIso : MonoBehaviour
         if (axeSwingInstance == null){
         animator.Play("Attack_barbarian");
         axeSwingInstance = Instantiate(axeSwingPrefab, transform.position, Quaternion.identity);
-        CinemachineCamera.GetComponent<CinemachineShake>().lightShake();
+        //CinemachineCamera.GetComponent<CinemachineShake>().lightShake();
         }
         //transições
         if (!isDashAttacking)
@@ -271,7 +290,7 @@ public class PlayerControllerIso : MonoBehaviour
     }
     public void Respawn()
     {
-        transform.position = Vector3.zero;
+        transform.position = spawnPoint;
         rb.velocity = Vector2.zero;
     }
 
@@ -290,6 +309,10 @@ public class PlayerControllerIso : MonoBehaviour
             else if (collision.GetComponent<PoliceZombie>() != null)
             {
                enemyDamage = collision.GetComponent<PoliceZombie>().damage; 
+            }
+            else if (collision.GetComponent<BossZombie>() != null)
+            {
+               enemyDamage = collision.GetComponent<BossZombie>().damage; 
             }
             
             playerHpState = PlayerHpState.Hurt;

@@ -180,7 +180,7 @@ public class SuperPlayerControllerIso : MonoBehaviour
         if (axeSwingInstance == null){
         animator.Play("Attack");
         axeSwingInstance = Instantiate(axeSwingPrefab, transform.position, Quaternion.identity);
-        CinemachineCamera.GetComponent<CinemachineShake>().heavyShake();
+        //CinemachineCamera.GetComponent<CinemachineShake>().heavyShake();
         }
 
         //transições
@@ -242,7 +242,6 @@ public class SuperPlayerControllerIso : MonoBehaviour
             if ((playerState == PlayerState.Attacking || playerState == PlayerState.RunAttack) && axeSwingInstance != null)
                 {
                     axeSwingInstance.transform.position = new Vector2(transform.position.x + 0.1f,transform.position.y);
-                    UnityEditor.EditorApplication.isPaused = true;
                 }
             
         }
