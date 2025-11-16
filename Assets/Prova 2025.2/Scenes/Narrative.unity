@@ -1345,8 +1345,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000015259, y: -1050}
-  m_SizeDelta: {x: 708.6578, y: 1525.9827}
+  m_AnchoredPosition: {x: 0.000015259, y: -1047}
+  m_SizeDelta: {x: 875.9726, y: 1525.9827}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2042175454
 MonoBehaviour:
@@ -1400,8 +1400,8 @@ MonoBehaviour:
     a hist\xF3ria ainda n\xE3o acabou.\r\n\r\nEles declaram que Narandiba ser\xE1
     o primeiro passo para a destrui\xE7\xE3o do mundo."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
-  m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b63697c017e532949b5350227ea2aff2, type: 2}
+  m_sharedMaterial: {fileID: 4107817533779292699, guid: b63697c017e532949b5350227ea2aff2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

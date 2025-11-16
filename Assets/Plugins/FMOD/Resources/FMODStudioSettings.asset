@@ -526,10 +526,8 @@ MonoBehaviour:
   switchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: "../../Uneb/Projeto MV/FMOD/iNVAS\xC3O ZUMBI em Narandiba/invas\xE3o
-    zumbi em narandiba/invas\xE3o zumbi em narandiba.fspro"
-  sourceBankPath: "../../Uneb/Projeto MV/FMOD/iNVAS\xC3O ZUMBI em Narandiba/invas\xE3o
-    zumbi em narandiba/Build"
+  sourceProjectPath: "Fmod/invas\xE3o zumbi em narandiba.fspro"
+  sourceBankPath: Fmod/Build
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
@@ -551,12 +549,8 @@ MonoBehaviour:
   VirtualChannelSettings: []
   RealChannelSettings: []
   Plugins: []
-  MasterBanks:
-  - Master
-  Banks:
-  - AAMBIENCE
-  - MUSIC
-  - SFXs
+  MasterBanks: []
+  Banks: []
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0
