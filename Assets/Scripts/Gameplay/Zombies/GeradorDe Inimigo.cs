@@ -23,10 +23,19 @@ public class GeradorDeInimigo : MonoBehaviour
         limiteDeSpawn = GetComponent<BoxCollider2D>();
         // Começa a gerar inimigos repetidamente
         InvokeRepeating("GerarInimigo", 0f, intervalo);
+        GameOverCheck();
     }
     void Update()
     {
-        Enemy = Random.Range(1, 4);       
+        Enemy = Random.Range(1, 4); 
+        GameOverCheck();
+    }
+    void GameOverCheck()
+    {
+        if (GameController.isGameOver)
+        {
+            CancelInvoke("GerarInimigo");
+        }
     }
 
     void GerarInimigo()

@@ -37,7 +37,8 @@ public class BombZombie : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         gameController = FindObjectOfType<GameController>();
-        player = GameObject.FindGameObjectWithTag("Player");    
+        player = GameObject.FindGameObjectWithTag("Player");
+        GmaeOverCheck();    
     }
 
     // Update is called once per frame
@@ -48,6 +49,10 @@ public class BombZombie : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         PlayerCheck();
         ChangeDirection();
+        if (GameController.isGameOver)
+        {
+            Destroy(gameObject);
+        }
     }
     void FixedUpdate()
     {  
@@ -70,6 +75,13 @@ public class BombZombie : MonoBehaviour
         if (playerVisto)
         {
             zombieState = ZombieState.Chasing;
+        }
+    }
+    void GmaeOverCheck()
+    {
+        if (GameController.isGameOver)
+        {
+            Destroy(gameObject);
         }
     }
     void Run()
@@ -113,6 +125,7 @@ public class BombZombie : MonoBehaviour
         {
             return;
         } 
+        GmaeOverCheck();
         direçãoPlayer = (player.transform.position - transform.position).normalized;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direçãoPlayer,2.5f, LayerMask.GetMask("Player"));
         if (hit.collider != null)

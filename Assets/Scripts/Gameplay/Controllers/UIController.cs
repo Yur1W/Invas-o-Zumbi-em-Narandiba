@@ -33,6 +33,7 @@ public class UIController : MonoBehaviour
     public void ActivateGameOverScreen()
     {
         gameOverScreen.SetActive(true);
+        GameController.isGameOver = true;
         Debug.Log("Game Over ");
     }
     public void ActivateLevelCompleteScreen()

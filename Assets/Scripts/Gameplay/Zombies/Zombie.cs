@@ -38,16 +38,22 @@ public class Zombie : MonoBehaviour
         animator = GetComponent<Animator>();
         gameController = FindObjectOfType<GameController>();
         player = GameObject.FindGameObjectWithTag("Player");
+        GmaeOverCheck();
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        if (GameController.isGameOver)
+        {
+            Destroy(gameObject);
+        }
         //Debug.DrawRay(transform.position, Vector2.left * 5f, Color.red);
         if (player == null)
         player = GameObject.FindGameObjectWithTag("Player");
         PlayerCheck();
         ChangeDirection();
+        GmaeOverCheck();
     }
     void FixedUpdate()
     {  
@@ -113,6 +119,7 @@ public class Zombie : MonoBehaviour
         {
             return;
         } 
+        GmaeOverCheck();
         direçãoPlayer = (player.transform.position - transform.position).normalized;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direçãoPlayer,2.5f, LayerMask.GetMask("Player"));
         if (hit.collider != null)
@@ -123,6 +130,13 @@ public class Zombie : MonoBehaviour
         else
         {
             playerVisto = false;
+        }
+    }
+    void GmaeOverCheck()
+    {
+        if (GameController.isGameOver)
+        {
+            Destroy(gameObject);
         }
     }
     void ChasePlayerCohesion()

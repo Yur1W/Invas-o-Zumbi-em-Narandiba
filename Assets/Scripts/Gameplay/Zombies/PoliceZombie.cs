@@ -38,6 +38,7 @@ public class PoliceZombie : MonoBehaviour
         animator = GetComponent<Animator>();
         gameController = FindObjectOfType<GameController>();
         player = GameObject.FindGameObjectWithTag("Player");
+        GmaeOverCheck();
     }
 
     // Update is called once per frame
@@ -48,6 +49,14 @@ public class PoliceZombie : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         PlayerCheck();
         ChangeDirection();
+        GmaeOverCheck();
+    }
+    void GmaeOverCheck()
+    {
+        if (GameController.isGameOver)
+        {
+            Destroy(gameObject);
+        }
     }
     void FixedUpdate()
     {  
@@ -113,6 +122,7 @@ public class PoliceZombie : MonoBehaviour
         {
             return;
         } 
+        GmaeOverCheck();
         direçãoPlayer = (player.transform.position - transform.position).normalized;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direçãoPlayer,2.5f, LayerMask.GetMask("Player"));
         if (hit.collider != null)

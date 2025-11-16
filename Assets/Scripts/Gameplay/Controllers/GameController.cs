@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
     public static int lifes = 100;
     [SerializeField]
     public static int killCount = 0;
+    public static bool isGameOver = false;
    
 
 
@@ -22,6 +23,7 @@ public class GameController : MonoBehaviour
     {
         killCount = 49;
         lifes = 100;
+        isGameOver = false;
         SafeZone.SetActive(false);
         RestartLevel();
     }
