@@ -37,6 +37,7 @@ public class PoliceZombie : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         gameController = FindObjectOfType<GameController>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -183,8 +184,20 @@ public class PoliceZombie : MonoBehaviour
             return;
         }
         if (collision.gameObject.CompareTag("PlayerWeapon"))
-        {
-            hp -= player.GetComponent<PlayerControllerIso>().attackDamage;
+        { 
+            if (player.GetComponent<PlayerControllerIso>() == null)
+            {
+                return;
+            }
+            SuperPlayerControllerIso super = player.GetComponent<SuperPlayerControllerIso>();
+            PlayerControllerIso normal = player.GetComponent<PlayerControllerIso>();
+            
+            if (player.GetComponent<PlayerControllerIso>() == null)
+            hp -= super.attackDamage;
+            else
+            {
+                hp -= normal.attackDamage;
+            }
             StartCoroutine(BlinkEffect());
             if (hp <= 0)
             {

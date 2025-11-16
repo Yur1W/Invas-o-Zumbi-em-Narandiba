@@ -29,6 +29,9 @@ public class SuperPlayerControllerIso : MonoBehaviour
     Rigidbody2D rb;
     Animator animator;
     GameController gameController;
+    [SerializeField]
+    GameObject player;
+    GameObject CinemachineCamera;
    
     Vector2 axeSwingPosition;
     Vector2 inputMovement;
@@ -45,19 +48,25 @@ public class SuperPlayerControllerIso : MonoBehaviour
     public enum PlayerHpState { Hurt, Normal, Invincible }
     public PlayerHpState playerHpState = PlayerHpState.Normal;
 
+    void Start()
+    {
+        //initial setup
+        sprite = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        gameController = FindObjectOfType<GameController>();
+        CinemachineCamera = GameObject.FindGameObjectWithTag("Cine");
+
+    }
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.gravityScale = 0;
-        sprite = GetComponent<SpriteRenderer>();
-        gameController = GameObject.FindObjectOfType<GameController>();
-        animator = GetComponent<Animator>();
-        // set spawn point
+        // set spawn point 
+        transform.position = player.transform.position;
         spawnPoint = transform.position;
     }
     void Update()
     {
-        //inputMovement catch
+        //input catch
         inputMovement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         inputMovement = Vector2.ClampMagnitude(inputMovement, 1f);
         inputAttack = Input.GetKey(KeyCode.Mouse0);
@@ -92,7 +101,7 @@ public class SuperPlayerControllerIso : MonoBehaviour
     void Idle()
     {   
         rb.velocity = Vector2.zero;
-        animator.Play("Idle_barbarian");
+        animator.Play("Idle");
         //transições
         if (inputMovement != Vector2.zero)
         {
@@ -106,14 +115,14 @@ public class SuperPlayerControllerIso : MonoBehaviour
     void Die()
     {
         rb.velocity = Vector2.zero;
-        animator.Play("Die_barbarian");
+        animator.Play("Die");
         
     }
     void Run()
     {
         //comportamento
         rb.velocity = inputMovement * speed;
-        animator.Play("Run_barbarian");
+        animator.Play("Run");
         //transições
         if (inputMovement == Vector2.zero)
         {
@@ -134,7 +143,7 @@ public class SuperPlayerControllerIso : MonoBehaviour
         rb.velocity = Vector2.zero;
         if (axeSwingInstance == null)
         axeSwingInstance = Instantiate(axeSwingPrefab, transform.position, Quaternion.identity);
-        animator.Play("Attack_barbarian");
+        animator.Play("Attack");
 
         //transições
         if (!isAttacking)
@@ -167,8 +176,9 @@ public class SuperPlayerControllerIso : MonoBehaviour
         //comportamento
         rb.velocity = inputMovement * dashAttackSpeed;
         if (axeSwingInstance == null)
-        animator.Play("Attack_barbarian");
+        animator.Play("Attack");
         axeSwingInstance = Instantiate(axeSwingPrefab, transform.position, Quaternion.identity);
+        CinemachineCamera.GetComponent<CinemachineShake>().heavyShake();
 
         //transições
         if (!isDashAttacking)
@@ -258,7 +268,18 @@ public class SuperPlayerControllerIso : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            enemyDamage = collision.GetComponent<Zombie>().damage;
+            if (collision.GetComponent<Zombie>() != null)
+            {
+               enemyDamage = collision.GetComponent<Zombie>().damage; 
+            }
+            else if (collision.GetComponent<BombZombie>() != null)
+            {
+               enemyDamage = collision.GetComponent<BombZombie>().damage; 
+            }
+            else if (collision.GetComponent<PoliceZombie>() != null)
+            {
+               enemyDamage = collision.GetComponent<PoliceZombie>().damage; 
+            }
             playerHpState = PlayerHpState.Hurt;
 
         }
