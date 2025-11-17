@@ -268,12 +268,17 @@ public class PlayerControllerIso : MonoBehaviour
             sprite.flipX = false;
         }
         else
-        {
+        {   
+           
             sprite.flipX = true;
+             CapsuleCollider2D[] colliders = GetComponents<CapsuleCollider2D>();
+            colliders[0].offset = new Vector2(-0.1f, 0);
+            colliders[1].offset = new Vector2(-0.1f, 0);
             if ((playerState == PlayerState.Attacking || playerState == PlayerState.RunAttack) && axeSwingInstance != null)
                 {
                     axeSwingInstance.transform.position = new Vector2(transform.position.x - 0.6f,transform.position.y);
                 }
+            
         }
         
     }

@@ -122,6 +122,7 @@ public class BombZombie : MonoBehaviour
             var explosion = GetComponentInChildren<Animator>();
             explosion.Play("Explode");
         }
+        GameController.zombiesAlive--;
         Destroy(gameObject, 0.5f);
     }
     void PlayerCheck()

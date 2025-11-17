@@ -29,12 +29,12 @@ public class TextScroll2D : MonoBehaviour
         rect.anchoredPosition = pos;
         if (pos.y > endY)
         {
-            StartCoroutine(LoadNextSceneAfterDelay(1f));
+            StartCoroutine(LoadNextSceneAfterDelay());
         }
     }
-    IEnumerator LoadNextSceneAfterDelay(float delay)
+    IEnumerator LoadNextSceneAfterDelay()
     {
-        yield return new WaitForSeconds(delay);
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadSceneAsync(2);
     }
 }

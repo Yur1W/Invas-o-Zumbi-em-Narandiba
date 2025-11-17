@@ -15,7 +15,6 @@ public class GeradorDeInimigo : MonoBehaviour
     // Limites de spawn no cenário
    public BoxCollider2D limiteDeSpawn;
 
-    // Velocidade de movimento dos inimigos
     int Enemy;
 
     void Start()
@@ -44,18 +43,26 @@ public class GeradorDeInimigo : MonoBehaviour
         Vector2 posicaoAleatoria = GetRandomPositionCollider();
 
         // Instancia o inimigo
-        switch (Enemy)
+        if(GameController.zombiesAlive >= 50)
         {
-            case 1:
-                Instantiate(ZumbiComum, posicaoAleatoria, Quaternion.identity);
-                break;
-            case 2:
-                Instantiate(ZumbiPolicial, posicaoAleatoria, Quaternion.identity);
-                break;
-            case 3:
-                Instantiate(ZumbiBomba, new Vector2(9.5f,-2.2f), Quaternion.identity);
-                break;
+            return;
         }
+        else
+        {
+            switch (Enemy)
+            {
+                case 1:
+                    Instantiate(ZumbiComum, posicaoAleatoria, Quaternion.identity);
+                    break;
+                case 2:
+                    Instantiate(ZumbiPolicial, posicaoAleatoria, Quaternion.identity);
+                    break;
+                case 3:
+                    Instantiate(ZumbiBomba, new Vector2(9.5f,-2.2f), Quaternion.identity);
+                    break;
+            }
+        }
+        
     }
     Vector2 GetRandomPositionCollider()
     {
