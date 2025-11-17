@@ -19,15 +19,15 @@ public class TitleScreen : MonoBehaviour
     }
     public void StartGame()
     {
-        SceneManager.LoadSceneAsync(2);
+        SceneManager.LoadSceneAsync(1);
+    }
+    public void ArcadeMode()
+    {
+        SceneManager.LoadSceneAsync(4);
     }
     public void NextLevel()
     {
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-    }
-    public void SettingsScreen()
-    {
-        SceneManager.LoadSceneAsync(1);
     }
     public void MainMenu()
     {
@@ -47,6 +47,6 @@ public class TitleScreen : MonoBehaviour
     }
     public void SkipCinematic()
     {
-        SceneManager.LoadSceneAsync(3);
+        SceneManager.LoadSceneAsync(2);
     }
 }

@@ -1362,7 +1362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollSpeed: 50
   startY: -1100
-  endY: 1100
+  endY: 1300
 --- !u!114 &2042175455
 MonoBehaviour:
   m_ObjectHideFlags: 0
