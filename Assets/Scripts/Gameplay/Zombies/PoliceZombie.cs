@@ -117,6 +117,7 @@ public class PoliceZombie : MonoBehaviour
             bomb.enabled = true;
             animator.Play("Explode");
         }
+        GameController.zombiesAlive--;
         Destroy(gameObject, 0.5f);
     }
     void PlayerCheck()
