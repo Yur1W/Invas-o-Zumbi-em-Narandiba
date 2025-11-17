@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        killCount = 50;
+        killCount = 0;
         lifes = 175;
         isGameOver = false;
         Blockage.SetActive(true);
