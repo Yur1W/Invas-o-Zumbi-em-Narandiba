@@ -15,6 +15,7 @@ public class BossZombie : MonoBehaviour
     SpriteRenderer sprite;
     Rigidbody2D rb;
     Animator animator;
+    [SerializeField]
     GameController gameController;
     GameObject player;
     float horizontalInput;
@@ -47,7 +48,6 @@ public class BossZombie : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        gameController = FindObjectOfType<GameController>();
         player = GameObject.FindGameObjectWithTag("Player");
         GmaeOverCheck();
         InvokeRepeating("GerarInimigo", intervaloDeSpawn, intervaloDeSpawn);
