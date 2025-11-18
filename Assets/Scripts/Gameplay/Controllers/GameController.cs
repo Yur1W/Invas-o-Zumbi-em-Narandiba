@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour
     GameObject Blockage;
     [Header("Game Stats")]
     [SerializeField]
-    public static int lifes = 175;
+    public static int lifes = 250;
     [SerializeField]
     public static int killCount = 0;
     public static int zombiesAlive = 0;
@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         killCount = 0;
-        lifes = 175;
+        lifes = 250;
         isGameOver = false;
         Blockage.SetActive(true);
         RestartLevel();
