@@ -43,7 +43,7 @@ They declare that Narandiba will be the first step toward the world’s destruct
 ## Links
 [Projeto no Play Unity](https://play.unity.com/en/games/99705406-6ce1-4223-a1c7-3e55ac0bb061/invasao-zumbi-em-narandiba)
 
-[Gameplay Video]()
+[Gameplay Video](https://www.youtube.com/watch?v=1PJ1GZ3bUEI)
 
 ## Colaborators
 [Samuel Figueredo](https://github.com/DjTarma)
